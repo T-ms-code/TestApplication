@@ -31,4 +31,10 @@ app.get("/divide", (req, res) => {
   res.json({ operation: "divide", result: a / b });
 });
 
+app.get("/power", (req, res) => {
+  const base = parseFloat(req.query.base) || 0;
+  const exponent = parseFloat(req.query.exponent) || 0;
+  res.json({ operation: "power", result: Math.pow(base, exponent) });
+});
+
 module.exports = { app, port };
