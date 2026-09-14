@@ -14,4 +14,10 @@ app.get("/diff", (req, res) => {
   res.json({ operation: "difference", result: a - b });
 });
 
+app.get("/multiply", (req, res) => {
+  const a = parseFloat(req.query.a) || 0;
+  const b = parseFloat(req.query.b) || 0;
+  res.json({ operation: "multiply", result: a * b });
+});
+
 module.exports = { app, port };
