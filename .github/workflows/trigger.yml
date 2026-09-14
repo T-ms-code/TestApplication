@@ -1,0 +1,18 @@
+name: Trigger ChatBot Update
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  notify-chatbot:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Signal to ChatBot
+        run: |
+          curl -X POST https://api.github.com/repos/T-ms-code/ChatBot/dispatches \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
+          -d '{"event_type": "update-docs", "client_payload": {"pr_number": "${{ github.event.pull_request.number }}"}}'
